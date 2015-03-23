@@ -112,10 +112,10 @@
 					<p>Je suis très ouvert sur toute les différentes technologie qui existe et qui peuvent simplifié l'utilisation du web, uatant pour les developpeurs que les utilisateurs</p>
 				</div>
 			</div>
-			<h1 class="text-center">Mes derniers projets</h1>
-			<p class="lead text-center">La plupart de mes projets sont en cours de développement, voir même certain au stade d'idée, visitez la page concernant mes projets pour plus de détail</p>
+			
 			<div data-target="#acceuil-projets" class="center-block content">
-				
+				<h1 class="text-center">Mes derniers projets</h1>
+				<p class="lead text-center">La plupart de mes projets sont en cours de développement, voir même certain au stade d'idée, visitez la page concernant mes projets pour plus de détail</p>
 				<div class="row">
 					<div class="col-sm-6 hidden-xs">
 						<img class="img img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRYOLejfp1a13Q2e94C4YxwgmurqfE1LSTlMa_1cxETx4kIqmJ">
@@ -151,7 +151,9 @@
 					
 				</div>
 			</div>
-			
+			<div id="acceuil-blog">
+				<h1 class="text-center">Mes derniers posts de blogs</h1>
+			</div>
 		</div>
 		<span id="top-link-block" class="hidden">
 		    <a href="#top" class="well well-sm"  onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
@@ -200,6 +202,5 @@
 		  ga('send', 'pageview');
 
 		</script>
-
 	</body>
 </html>
