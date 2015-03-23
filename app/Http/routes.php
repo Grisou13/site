@@ -11,4 +11,13 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/',['as'=>'index','uses'=>'WelcomeController@index']);
+Route::resource('projects','ProjectController');
+Route::group(['prefix'=>'blog'],function(){
+	Route::any('/',['as'=>'blog.index',function(){
+		return view('blog.index');
+	}]);
+	Route::resource('comments','CommentController');
+	Route::resource('post','PostController');
+});
+Route::controller('contact','ContactController',['except'=>'create']);
