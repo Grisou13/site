@@ -1,5 +1,6 @@
 <html>
 	<head>
+
 		
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -199,5 +200,6 @@
 		  ga('send', 'pageview');
 
 		</script>
+
 	</body>
 </html>

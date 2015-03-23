@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/',['as'=>'index','uses'=>'WelcomeController@index']);
 Route::resource('projects','ProjectController');
 Route::group(['prefix'=>'blog'],function(){
@@ -21,3 +22,4 @@ Route::group(['prefix'=>'blog'],function(){
 	Route::resource('post','PostController');
 });
 Route::controller('contact','ContactController',['except'=>'create']);
+
