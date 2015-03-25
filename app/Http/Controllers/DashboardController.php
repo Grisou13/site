@@ -4,51 +4,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\LoginFormRequest;
-use Auth;
 
-class AuthController extends Controller {
-	/*
-		Class constructor
-	*/
-	public function __construct()
-	{
-    $this->middleware('guest', ['except' => 'getLogout']);
-	}
-  /*
-		Get the logout
-	*/
-  public function getLogout()
-  {
-    Auth::logout();
-    return redirect()->guest('home');
-  }
-  /*
-		Get the login page
-	*/
-	public function getLogin()
-	{
-      return view('auth.login');
-	}
-	/*
-		Log the User In
-	*/
-	public function postLogin(LoginFormRequest $loginRequest)
-	{
+class DashboardController extends Controller {
 
-      if (Auth::attempt($loginRequest->only("email","password"),null!==($loginRequest->input('remember'))))
-      {
-          return redirect()->intended('dashboard');
-      }
-      return redirect()->guest('home');
-	}
-	/**
-   * Register the user, if needed for further implementation
-	*/
-	public function register()
-	{
-
-	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -56,7 +14,7 @@ class AuthController extends Controller {
 	 */
 	public function index()
 	{
-		return view('auth.index');
+		return view('dashboard.index');
 	}
 
 	/**
@@ -76,7 +34,7 @@ class AuthController extends Controller {
 	 */
 	public function store()
 	{
-		$this->register();
+		//
 	}
 
 	/**

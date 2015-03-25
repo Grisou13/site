@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'http://thomas-ricci.io',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'fr',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -144,7 +144,11 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
-
+    
+    /*
+     * Vendor Service Providers
+     */
+    'Illuminate\Html\HtmlServiceProvider'
 	],
 
 	/*
@@ -192,7 +196,11 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
-
+    /*
+     * Vendor Aliases
+     */
+    "Html"      =>"Illuminate\Html\HtmlFacade",
+    "Form"      =>"Illuminate\Html\FormFacade",
 	],
 
 ];

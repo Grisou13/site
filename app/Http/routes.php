@@ -11,9 +11,8 @@
 |
 */
 
-
 Route::get('/',['as'=>'index','uses'=>'WelcomeController@index']);
-Route::resource('projects','ProjectController');
+
 Route::group(['prefix'=>'blog'],function(){
 	Route::any('/',['as'=>'blog.index',function(){
 		return view('blog.index');
@@ -21,5 +20,11 @@ Route::group(['prefix'=>'blog'],function(){
 	Route::resource('comments','CommentController');
 	Route::resource('post','PostController');
 });
-Route::controller('contact','ContactController',['except'=>'create']);
+Route::controller('auth','AuthController');
+Route::controller('contact','ContactController');
 
+Route::get('/language',["as"=>"lang.selector","uses"=>"LanguageController@changeLanguage"]);
+Route::group(['prefix'=>'dashboard'],function(){
+  Route::get('/',['as'=>'dashboard.index','uses'=>'DashboardController@index']);
+  Route::resource('projects','ProjectController');
+});
