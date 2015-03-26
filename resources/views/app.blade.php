@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+		<link rel="stylesheet" href="{{asset('css/bootstrap-theme.min.css')}}">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
     <!--[if lt IE 9]>
@@ -18,15 +18,28 @@
 				color:#9d9ddd;
 				height: 100vh;
 				background-size: cover;
-			    background-position: center;
-			    background-image: url('img/hero-2.jpg');
+			  background-position: center;
+			  background-image: url('img/hero-2.jpg');
 				margin-bottom: 50px;
 
 				display: flex;
 				flex-direction: column;
+        
 				justify-content: center;
 				align-items: center;
 				text-align: center;
+        
+        /* Internet Explorer 10 */
+        display:-ms-flexbox;
+        -ms-flex-pack:center;
+        -ms-flex-align:center;       
+        /* Safari, Opera, and Chrome */
+        display:-webkit-box;
+        -webkit-box-pack:center;
+        -webkit-box-align:center;
+        /* W3C */
+        box-pack:center;
+        box-align:center;
 			}
 			#main-nav-container{
 				margin-bottom:0px;
@@ -242,7 +255,7 @@
 		
 		<span id="top-link-block" class="hidden">
 		    <a href="#top" class="well well-sm"  onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
-		        <i class="glyphicon glyphicon-chevron-up"></i> Back to Top
+		        <i class="glyphicon glyphicon-chevron-up"></i>
 		    </a>
 		</span><!-- /top-link-block -->
 		<footer class="footer">			

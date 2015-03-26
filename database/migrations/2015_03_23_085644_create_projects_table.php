@@ -16,6 +16,7 @@ class CreateProjectsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('title');
+      $table->text('teaser');
 			$table->text('body');
 			$table->string('slug');
 			$table->boolean('highlighted');

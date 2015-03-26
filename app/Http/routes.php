@@ -26,5 +26,6 @@ Route::controller('contact','ContactController');
 Route::get('/language',["as"=>"lang.selector","uses"=>"LanguageController@changeLanguage"]);
 Route::group(['prefix'=>'dashboard'],function(){
   Route::get('/',['as'=>'dashboard.index','uses'=>'DashboardController@index']);
-  Route::resource('projects','ProjectController');
+  Route::resource('projects','ProjectController');//routes to be controlled by dashboard
 });
+Route::resource('projet','ProjectController',["only"=>["show","index"]]);
