@@ -6,8 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller {
+  public function __construct() 
+  {
+    $this->middleware('App\Http\Middleware\Authenticate');
+  }
 
-	/**
+  /**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response

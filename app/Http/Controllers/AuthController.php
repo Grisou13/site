@@ -40,7 +40,7 @@ class AuthController extends Controller {
       {
           return redirect()->intended('dashboard');
       }
-      return redirect()->guest('home');
+      return redirect()->guest('index');
 	}
 	/**
    * Register the user, if needed for further implementation
