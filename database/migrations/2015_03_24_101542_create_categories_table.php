@@ -19,14 +19,14 @@ class CreateCategoriesTable extends Migration {
 			$table->text('description');
 			$table->timestamps();
 		});
-    DB::raw('set foreign_key_checks=1');
+    DB::raw('set foreign_key_checks=1;');
 		Schema::create('post_categories_pivot',function(Blueprint $table){
 			$table->integer('post_id')->unsigned();
 			$table->foreign('post_id')->references('id')->on('posts');
 			$table->integer('categorie_id')->unsigned();
 			$table->foreign('categorie_id')->references('id')->on('categories');
 		});
-    DB::raw('set foreign_key_checks=0');
+    DB::raw('set foreign_key_checks=0;');
 	}
 
 	/**

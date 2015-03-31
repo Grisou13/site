@@ -1,6 +1,5 @@
 <div class="row project">
-    <h1>{{$project->title}}</h1>
+    {!! $project->title !!}
     {!! $project->teaser !!}
-    
     {!! project->body !!}
 </div>
