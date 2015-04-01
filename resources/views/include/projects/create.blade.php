@@ -1,12 +1,7 @@
-@if($project->title)
-{!! Form::open(["route"=>"dashboard.projects.update"]) !!}
-@else
 {!! Form::open(["route"=>"dashboard.projects.store"]) !!}
-@endif
-
-  {!! Form::text('title',$project->title!==null?$project->title:'',[]) !!}
-  {!! Form::textarea('teaser',$project->teaser!==null?$project->teaser:'',[]) !!}
-  {!! Form::textarea('body',$project->body!==null?$project->body:'',[]) !!}
-  {!! Form::checkbox('highlighted','true',$project->highlighted!==null?true:false) !!}
+Title : {!! Form::textarea('title',null,[]) !!}<br>
+Teaser : {!! Form::textarea('teaser',null,[]) !!}<br>
+Body : {!! Form::textarea('body',null,[]) !!}<br>
+Highlighted ? {!! Form::checkbox('highlighted','true') !!}<br>
   {!! Form::submit() !!}
 {!! Form::close() !!}

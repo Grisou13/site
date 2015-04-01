@@ -63,5 +63,20 @@ return [
 		'table' => 'password_resets',
 		'expire' => 60,
 	],
-
+  /*
+	|--------------------------------------------------------------------------
+	| User registration
+	|--------------------------------------------------------------------------
+	|
+	| Here we define if the visitors of the site are allow to register
+  | by default it will be set to FALSE, except for localhost
+	|
+	*/
+  "register"=>[
+    "authorized"=>true,
+    "whitelist"=>[
+      "localhost","127.0.0.1","10.0.2.2"
+    ],
+  ],
+  
 ];

@@ -4,7 +4,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-
+use App\Project;
+use App\Http\Requests\StoreProject;
+use Auth;
 class ProjectController extends Controller {
   public function __construct() {
     $this->middleware('App\Http\Middleware\Authenticate',["except"=>["show","index"]]);
@@ -17,7 +19,7 @@ class ProjectController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		return view('projects.index',["projects"=>  Project::all()]);
 	}
 
 	/**
@@ -27,7 +29,7 @@ class ProjectController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('projects.create');
 	}
 
 	/**
@@ -35,9 +37,19 @@ class ProjectController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(StoreProject $req)
 	{
-		//
+    $project = new Project([
+      "user_id"=>Auth::id(),
+      "body"=>$req->input('body'),
+      "teaser"=>$req->input('teaser'),
+      'title'=>$req->input('title'),
+      'highlighted'=>$req->has('highlighted')]);
+    $project->slug=$project->generateSlug();
+		if($project->save()){
+        return redirect ()->back ()->withErrors(['project created']);
+    }
+    return redirect()->back()->withErrors(['coudn\'t create project']);
 	}
 
 	/**

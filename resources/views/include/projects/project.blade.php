@@ -1,5 +1,5 @@
 <div class="row project">
-    {!! $project->title !!}
+    <h1>{{ $project->title }}</h1>
     {!! $project->teaser !!}
     {!! project->body !!}
 </div>

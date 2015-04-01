@@ -30,7 +30,7 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('welcome');
+		return view('welcome',["projects"=>  \App\Project::where('highlighted',true)->limit(5)->get()]);
 	}
 
 }

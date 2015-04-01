@@ -44,10 +44,14 @@
 			#main-nav-container{
 				margin-bottom:0px;
 			}
-			body {
+			body,html {
 			  position: relative;
 			  background-color:#D6D6D6;
+
 			}
+      .hidden{
+        display:none;
+      }
 			.footer{
 				padding: 20px 20px;
 				background-color: #444;
@@ -79,25 +83,30 @@
 			}
       .sidebar.affix-top{
         position: absolute; /* allows it to "slide" up into view */
-       
+       display:none;
+      }
+      .sidebar-right.affix-top{
+        right:-250px;
+        
+      }
+      .sidebar-left.affix-top{
+        left:-250px;
+        
       }
       .sidebar.affix{
         position:fixed;
         top:53px;
+        display:block;
       }
       .sidebar{
         max-width: 200px;
         background-color:#f5f5f5;
         border-right: 1px solid #eee;
         overflow-x: hidden;
-        overflow-y: auto;
+        overflow-y: hidden;
+        position:absolute;
       }
-      .sidebar-right.affix-top{
-        right:-250px;
-      }
-      .sidebar-left.affix-top{
-        left:-250px;
-      }
+
       .sidebar-right{
         float:right;
         right:2px;
@@ -111,10 +120,71 @@
           display:none;
         }
       }
+      .contact input{
+        -moz-border-bottom-colors: none;
+        -moz-border-left-colors: none;
+        -moz-border-right-colors: none;
+        -moz-border-top-colors: none;
+        background: none repeat scroll 0 center rgba(0, 0, 0, 0);
+        border-color: -moz-use-text-color -moz-use-text-color #ffffff;
+        border-image: none;
+        border-style: none none solid;
+        border-width: 0 0 1px;
+        color: #000;
+        font-size: 12px;
+        font-style: italic;
+        font-weight: 400;
+        letter-spacing: 1px;
+        margin: 0 0 5px;
+        outline: 0 none;
+        padding: 5px 10px;
+        width: 100%;
+      }
+      .contact textarea {
+        margin-top: 10px;
+        margin-left: 50px;
+        width: 500px;
+        height: 100px;
+        -moz-border-bottom-colors: none;
+        -moz-border-left-colors: none;
+        -moz-border-right-colors: none;
+        -moz-border-top-colors: none;
+        background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07);
+        border-color: -moz-use-text-color #FFFFFF #FFFFFF -moz-use-text-color;
+        border-image: none;
+        border-radius: 6px 6px 6px 6px;
+        border-style: none solid solid none;
+        border-width: medium 1px 1px medium;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+        color: #555555;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 1em;
+        line-height: 1.4em;
+        padding: 5px 8px;
+        transition: background-color 0.2s ease 0s;
+      }
+      .contact textarea:focus {
+        background: none repeat scroll 0 0 #FFFFFF;
+        outline-width: 0;
+      } 
+      #main-nav-container{
+        border-radius: 0 !important;
+        -moz-border-radius: 0 !important;
+        -webkit-border-radius: 0 !important;
+        -ms-border-radius:0 !important;
+        -o-border-radius:0 !important
+      }
+      #main-nav-container.affix-top{
+        position:fixed;
+        top:-100px;
+      }
+      #main-nav-container.affix{
+        position:relative;
+      }
 		</style>
 	</head>
-	<body data-spy="scroll" data-target="#navbar-example">
-		<nav class="navbar navbar-inverse navbar-fixed-top" id="main-nav-container">
+	<body>
+		<nav class="navbar navbar-inverse navbar-top hidden" id="main-nav-container">
 			<div class="container">
 			    <!-- Brand and toggle get grouped for better mobile display -->
 			    <div class="navbar-header">
@@ -124,133 +194,67 @@
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span>
 			      </button>
-			      <a class="navbar-brand" href="#">thomas-ricci.io</a>
+			      <a class="navbar-brand" href="{{url('/')}}">thomas-ricci.io</a>
 			    </div>
 			    <div class="collapse navbar-collapse" id="main-nav">
 			    	<ul class="nav navbar-nav">
 			    		<li>
-			    			<a href="{{url('/')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Acceuil <span class="caret"></span></a>
-				    		<ul class="dropdown-menu" role="menu">
-					            <li><a href="acceuil-formation" id="acceuil-formation">Formation</a></li>
-					            <li><a href="#" id="acceuil-projets">Projets</a></li>
+			    			<a href="{{url('/')}}" class="dropdown-toggle" data-toggle="dropdown" role="anchor" aria-expanded="false">Acceuil <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+					            <li><a href="#acceuil-formation">Formation</a></li>
+					            <li><a href="#">Projets</a></li>
 					            
-				          	</ul>
+                  </ul>
               </li>
-			          	<li><a href="{{url('projects')}}">Projets</a></li>
-			          	<li><a href="{{url('contact')}}">Me contacter</a></li>
-                  <li>{!! Form::open(['route'=>'lang.selector']) !!}
-                    {!! Form::token() !!}
+			          	<li><a href="{{route('projet.index')}}">Projets</a></li>
+			          	<li><a href="{{action('ContactController@getIndex')}}">Me contacter</a></li>
+                  <li>
+                    {!! Form::open(['route'=>'lang.selector',"class"=>"navbar-form"]) !!}
                     {!! Form::select('lang',[
                       "en"=>trans('app.form.lang.en'),
                       "fr"=>trans('app.form.lang.fr')
                     ]) !!}
-                    {!! Form::close() !!}</li>
+                    {!! Form::close() !!}
+                  </li>
                 @section('main-navigation')
 			    	</ul>
 			    </div>
 			</div>
 		</nav>
 		<a name="top"></a>
-    
-    
+     @if(!empty($messages))
+    <div class="alert alert-warning alert-dismissible" role="alert">
+      <ul>
+        @foreach ($messages->all('<li>:message</li>') as $message)
+            {{$message}}
+        @endforeach
+      </ul>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    @endif
     <div class="page-content">
-      @section('hero')
-      <!-- HERO -->
-      <div class="hero">
-        <div class="row">
-          <div class="col-sm-4 col-xs-8">
-            <h1 class="text-center">Le développement Web fait facilement</h1>
-            <p class="lead"></p>
-          </div>
-        </div>
-      </div> <!-- /HERO -->    
-      @show
+     
+      @yield('hero')
       <!-- SIDEBAR -->
-      <div>
+      <div class="sidebar-container">
         <div class="sidebar-left sidebar hidden">
-          @section('sidebar')
-          @show
+          @yield('sidebar-left')
         </div>
         <div class="sidebar-right sidebar hidden">
-          @section('sidebar-right')
-          <ul class="nav nav-sidebar">
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Reports</a></li>
+          @yield('sidebar-right')
+          <ul class='navbar'>
+            <li>
+              akfsjshdf
+            </li>
           </ul>
-          @show
         </div>
       </div><!-- /SIDEBAR -->
-     
-      @section('content')
       <!-- CONTENT -->
       <div class="container" >
-        <!-- DESCRIPTION -->
-        <div class="row">
-          <div class="col-md-4" >
-            <img src="https://www.carlton.srsd119.ca/wordpress/wp-content/uploads/2014/02/Categories-applications-education-university-icon.png" width="150" class="img img-circle align-center">
-            <h1 class="text-center"><a name="acceuil-formation" data-target="#acceuil-formation">Formation</a></h1>
-            <p>Je suis actuellement étudiant au CPNV à Sainte-Croix, en Informaticien CFC</p>
-            <p>Je suis passioné par le développement web depuis quelque temps eta i envie de rendre le web plus facile et accessible au personne qui n'en ont pas les moyens ni le temps</p>
-          </div>
-          <div class="col-md-4">
-            <img src="http://agence-tasch.com/wp-content/uploads/design/icones/site-optimise-seo.png" width="150" class="img img-circle align-center">
-            <h1 class="text-center">Travail personnel</h1>
-            <p>Je suis actuellement en stage chez Kudelski NagraVision, et dans l'équipe de développement et maintenance Web</p>
-          </div>
-          <div class="col-md-4">
-            <img src="http://portal.securecodewarrior.com/img/code-icon.png" width="150" class="img img-circle align-center">
-            <h1 class="text-center">Technique</h1>
-            <p>Je suis très ouvert sur toute les différentes technologie qui existe et qui peuvent simplifié l'utilisation du web, uatant pour les developpeurs que les utilisateurs</p>
-          </div>
-        </div><!-- /DESCRIPTION -->
-
-        <!-- PROJECTS -->
-        <div data-target="#acceuil-projets" class="center-block content">
-          <h1 class="text-center">Mes derniers projets</h1>
-          <p class="lead text-center">La plupart de mes projets sont en cours de développement, voir même certain au stade d'idée, visitez la page concernant mes projets pour plus de détail</p>
-          <div class="row">
-            <div class="col-sm-6 hidden-xs">
-              <img class="img img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRYOLejfp1a13Q2e94C4YxwgmurqfE1LSTlMa_1cxETx4kIqmJ">
-            </div>
-            <div class="col-sm-6">
-              <h1>QuadriPi</h1>
-              <p>Un quadri-copter fait grâce à un Raspberry PI et un Arduino.</p>
-              <p>Le but ultime de ce projet est d'avoir un drone pilotable grâce a une télécommande et aussi un joystick. Le drone aura une caméra et potentiellement un système de vue immersive</p>
-              <a href="{{url('projects/raspi-drone')}}" class="btn btn-primary">En savoir plus</a>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <h1>Meet and Create</h1>
-              <p>Un site de partage de projets. Il a été réalisé dans le cadre de ma formation au CPNV en groupe. Nous avons voulu le continuer avec un des membre du projet pour permettre de faire des focntionnalité plus avancés </p>
-              <a href="{{url('projects/mac')}}" class="btn btn-primary">En savoir plus</a>
-            </div>
-            <div class="col-sm-6 hidden-xs">
-              <img class="img img-responsive" src="img/project-sharing.png">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6 hidden-xs">
-              <img src="http://cdn2.hubspot.net/hub/189007/file-515211463-jpg/Cloud-Comput.jpg" class="img img-responsive">
-            </div>
-            <div class="col-sm-6 pull-right">
-              <h1>Load Balancer</h1>
-              <p>Un site permettant de crée des répartisseur de charges logique. Tout se fait de manière automatisé par une interface WEB.</p>
-              <p>Le but final de ce projet et de pouvoir déployer une application sur un tas de serveur redondant sans avoir besoins de s'en occuper.</p>
-              <p>Le load balancing est la base d'un cloud.</p>
-              <a href="{{url('projects/mac')}}" class="btn btn-primary">En savoir plus</a>
-            </div>
-          </div>
-        </div>
-        <!-- /PROJECTS -->
-        <!-- BLOG -->
-        <div id="acceuil-blog">
-          <h1 class="text-center">Mes derniers posts de blogs</h1>
-        </div><!-- /BLOG -->
-
+        @yield('content')      
       </div><!-- /CONTENT --> 
-      @show
     </div>
 		
 		<span id="top-link-block" class="hidden">
@@ -273,7 +277,7 @@
 						</ul>
 					</div>
 					<div class="col-xs-4 text-right">
-						<p><a href="{{url('contact')}}">Me contacter</a></p>
+						<p><a href="{{action('ContactController@getIndex')}}">Me contacter</a></p>
 					</div>
 				</div>
 			</div>
@@ -283,15 +287,33 @@
 	    <script src="js/bootstrap.min.js"></script>
 	    @yield('scripts')
 	    <script type="text/javascript">
+        console.log($('.hero').length);
 	    	if ( ($(window).height() + 100) < $(document).height() ) {
 			    $('#top-link-block').removeClass('hidden').affix({
 			        // how far to scroll down before link "slides" into view
-			        offset: {top:function(){return $('.hero').height()-100} }
+			        offset: {
+                top:function(){
+                  return $('.hero').length ? $('.hero').height()-100 : 0
+                }
+              }
 			    });
           $('.sidebar').removeClass('hidden').affix({
 			        // how far to scroll down before link "slides" into view
-			        offset: {top:function(){return $('.hero').height()-100} }
+			        offset: {
+                top:function(){
+                  return $('.hero').length ? $('.hero').height()-100 : -5
+                }
+              }
 			    });
+          $('#main-nav-container').removeClass('hidden').addClass("navbar-fixed-top").affix({
+			        // how far to scroll down before link "slides" into view
+			        offset: {
+                top:function(){
+                  return $('.hero').length ? $('.hero').height()-100 : -5
+                }
+              }
+			    });
+          
 			}
 	    </script>
 	    <script>
