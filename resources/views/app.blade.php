@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="{{asset('css/bootstrap-theme.min.css')}}">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+    <link href="{{asset('css/animate.min.css')}}" rel="stylesheet" >
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -179,12 +180,15 @@
         top:-100px;
       }
       #main-nav-container.affix{
-        position:relative;
+        position:fixed;
       }
 		</style>
 	</head>
+  
+  
+  
 	<body>
-		<nav class="navbar navbar-inverse navbar-top hidden" id="main-nav-container">
+		<nav class="navbar navbar-inverse hidden" id="main-nav-container">
 			<div class="container">
 			    <!-- Brand and toggle get grouped for better mobile display -->
 			    <div class="navbar-header">
@@ -305,7 +309,7 @@
                 }
               }
 			    });
-          $('#main-nav-container').removeClass('hidden').addClass("navbar-fixed-top").affix({
+          $('#main-nav-container').removeClass('hidden').addClass('animated fadeInDown navbar-fixed-top').affix({
 			        // how far to scroll down before link "slides" into view
 			        offset: {
                 top:function(){
