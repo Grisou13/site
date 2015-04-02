@@ -188,7 +188,7 @@
   
   
 	<body>
-		<nav class="navbar navbar-inverse hidden" id="main-nav-container">
+		<nav class="navbar navbar-default hidden" id="main-nav-container">
 			<div class="container">
 			    <!-- Brand and toggle get grouped for better mobile display -->
 			    <div class="navbar-header">
@@ -291,7 +291,8 @@
 	    <script src="js/bootstrap.min.js"></script>
 	    @yield('scripts')
 	    <script type="text/javascript">
-        console.log($('.hero').length);
+       
+       
 	    	if ( ($(window).height() + 100) < $(document).height() ) {
 			    $('#top-link-block').removeClass('hidden').affix({
 			        // how far to scroll down before link "slides" into view
@@ -301,6 +302,7 @@
                 }
               }
 			    });
+          
           $('.sidebar').removeClass('hidden').affix({
 			        // how far to scroll down before link "slides" into view
 			        offset: {
@@ -309,14 +311,112 @@
                 }
               }
 			    });
-          $('#main-nav-container').removeClass('hidden').addClass('animated fadeInDown navbar-fixed-top').affix({
-			        // how far to scroll down before link "slides" into view
-			        offset: {
-                top:function(){
-                  return $('.hero').length ? $('.hero').height()-100 : -5
-                }
+          
+          //VARS
+          var minOpacity=0.1 ,
+              animationTime=200//in ms
+              ;
+          //FUNCs
+          var progressiveOpacity=function(element,binder){ //element animate, binder:element to whatch
+              var fadeStart=$(binder).position().top // start scroll, opacity 0
+                  ,fadeUntil=$(binder).height()+$(binder).position().top // end scroll opacity 1
+                  ,fading = $(element)
+              ;
+
+              
+              var offset = $(window).scrollTop()
+                  ,opacity=0.1
+              ;
+              if( offset>=fadeUntil ){
+                  opacity=1;
+              }else if( offset>=fadeStart && offset <fadeUntil ){
+                  var newOpacity=offset/fadeUntil;
+                  if(newOpacity>minOpacity)
+                    opacity=newOpacity;
               }
-			    });
+
+              $(fading).css('opacity',opacity);
+              
+          };
+          if($('.hero').length ){//animate only if there is a hero
+            if($(window).scrollTop() === $('.hero').position().top)//change opacity only if we are on top of the hero
+              $('#main-nav-container').css('opacity',minOpacity);
+            $('#main-nav-container').addClass("navbar-fixed-top");
+          }
+          $('#main-nav-container').removeClass('hidden'); //always remove hiddens
+          if($(window).scrollTop()!==0)//add fixed top if we are in middle of the page
+            $('#main-nav-container').addClass("navbar-fixed-top");
+          
+          $(window).scroll(function(){
+            var scrollTop = $(window).scrollTop();
+            
+            if(scrollTop !== 0){//scrolling              
+              if($('#main-nav-container').css('opacity')<1){//if opacity is less then 1, change it
+                $('#main-nav-container').css('opacity','1');
+              }
+              if($('.hero').length && scrollTop !== $('.hero').outerHeight()){//animate if there is a hero
+                progressiveOpacity($("#main-nav-container"),$(".hero"));
+              }
+              if(!$('.hero').length)//add fixed if there is no hero and we are in middle of the page
+                $('#main-nav-container').addClass("navbar-fixed-top");
+            }
+            else	{//on top of the window
+              
+              if($('.hero').length && scrollTop !== $('.hero').outerHeight()){                
+                  $('#main-nav-container').stop().animate({'opacity':minOpacity},animationTime);
+               }
+              if(!$('.hero').length)
+                $('#main-nav-container').removeClass("navbar-fixed-top");
+            }
+          });
+
+          $('#main-nav-container').hover(
+            function (e) {//On hover In
+              
+              if($('#main-nav-container').css('opacity')<1){//change Opacity only if it less than maximum
+                $('#main-nav-container').stop().animate({'opacity':'1'},animationTime);
+              }
+            },
+            function (e) {//On hover Out
+               if($('#main-nav-container').css('opacity')>=1 && $('.hero').length && $(window).scrollTop() !== $('.hero').position().top)//do not animate if opacity is already max and window scroll not on hero
+                 return false;
+               if(!$('.hero').length)//do not animate if there is no hero
+                 return false;
+               if($('#main-nav-container').css('opacity')>minOpacity){
+                $('#main-nav-container').stop().animate({'opacity':minOpacity},animationTime);
+              }
+            }
+          );
+          
+          
+          /*$('#main-nav-container')
+              .removeClass('hidden') //always remove class on page load and add affix         
+              .affix({
+                  // how far to scroll down before link "slides" into view
+                  offset: {
+                    top:function(){
+                      return $('.hero').length ? $('.hero').height()-100 : -5
+                    }               
+                  }
+              })
+              .on('affixed.bs.affix',function(e){
+                $(this).removeClass("animated fadeOutUp affix");
+                $(this).addClass("navbar-fixed-top");                
+                $(this).addClass("animated fadeInDown");                
+                return false;
+              });
+          if($('.hero').length){//animate and every thing only if we have a hero
+            $('#main-nav-container')
+              .on('affixed-top.bs.affix',function(e){
+                $(this).removeClass("animated fadeInDown");
+                $(this).addClass('animated fadeOutUp');
+                return false;
+              })
+              .on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(e){
+                $(this).removeClass("animated");
+                return false;
+              });
+          }*/
           
 			}
 	    </script>
