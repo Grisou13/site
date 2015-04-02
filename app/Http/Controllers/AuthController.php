@@ -70,11 +70,14 @@ class AuthController extends Controller {
 	 */
 	public function postRegister(RegisterRequest $req)
 	{
-		if($user=User::create([$req->only('username','displayName','firstName','lastName','email','password')])){
+    $create=$req->only('username','displayName','firstName','lastName','email','password');
+    $create['password']=  bcrypt($create['password']);
+
+		if($user=User::create($create)){
       Auth::login($user);
       return redirect()->route ("dashboard.index")->withErrors(['Account Created']);
     }
-    return redirect()->back()->withError¨s(["Coudn't create account"]);
+    return redirect()->back()->withErrors(["Coudn't create account"]);
 	}
 
 }

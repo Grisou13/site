@@ -226,11 +226,11 @@
 			</div>
 		</nav>
 		<a name="top"></a>
-     @if(!empty($messages))
+     @if(!empty($errors)&& count($errors))
     <div class="alert alert-warning alert-dismissible" role="alert">
       <ul>
-        @foreach ($messages->all('<li>:message</li>') as $message)
-            {{$message}}
+        @foreach ($errors->all('<li>:message</li>') as $message)
+            {!! $message !!}
         @endforeach
       </ul>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -275,8 +275,8 @@
 					</div>
 					<div class="col-xs-4 text-center">
 						<ul class="list-unstyled">
-							<li><a href="{{url('projects')}}">Mes projets</a></li>
-							<li><a href="{{url('blog')}}">Mon blog</a></li>
+							<li><a href="{{route('projet.index')}}">Mes projets</a></li>
+							<li><a href="{{route('blog.index')}}">Mon blog</a></li>
 							<li><a href="https://github.com/Grisou13"><i class="fa fa-github"></i> Mon github</a></li>
 						</ul>
 					</div>
@@ -287,12 +287,12 @@
 			</div>
 		</footer>
 		
-	    <script src="js/jquery.min.js"></script>
-	    <script src="js/bootstrap.min.js"></script>
+	    <script src="{{asset('js/jquery.min.js')}}"></script>
+	    <script src="{{asset('js/bootstrap.min.js')}}"></script>
 	    @yield('scripts')
 	    <script type="text/javascript">
        
-       
+      
 	    	if ( ($(window).height() + 100) < $(document).height() ) {
 			    $('#top-link-block').removeClass('hidden').affix({
 			        // how far to scroll down before link "slides" into view
@@ -311,7 +311,8 @@
                 }
               }
 			    });
-          
+        }
+         $('#main-nav-container').removeClass('hidden'); //always remove hiddens
           //VARS
           var minOpacity=0.1 ,
               animationTime=200//in ms
@@ -343,7 +344,7 @@
               $('#main-nav-container').css('opacity',minOpacity);
             $('#main-nav-container').addClass("navbar-fixed-top");
           }
-          $('#main-nav-container').removeClass('hidden'); //always remove hiddens
+          
           if($(window).scrollTop()!==0)//add fixed top if we are in middle of the page
             $('#main-nav-container').addClass("navbar-fixed-top");
           
@@ -365,7 +366,7 @@
               if($('.hero').length && scrollTop !== $('.hero').outerHeight()){                
                   $('#main-nav-container').stop().animate({'opacity':minOpacity},animationTime);
                }
-              if(!$('.hero').length)
+              if(!$('.hero').length)//remove fixed if we are on top of page and there is no hero
                 $('#main-nav-container').removeClass("navbar-fixed-top");
             }
           });
@@ -418,7 +419,7 @@
               });
           }*/
           
-			}
+			
 	    </script>
 	    <script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
