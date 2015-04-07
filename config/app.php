@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	'debug' => env('APP_DEBUG'),
+	'debug' => env('APP_DEBUG','false'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -148,7 +148,8 @@ return [
     /*
      * Vendor Service Providers
      */
-    'Illuminate\Html\HtmlServiceProvider'
+    'Illuminate\Html\HtmlServiceProvider',
+    'Zizaco\Entrust\EntrustServiceProvider',
 	],
 
 	/*
@@ -201,6 +202,7 @@ return [
      */
     "Html"      =>"Illuminate\Html\HtmlFacade",
     "Form"      =>"Illuminate\Html\FormFacade",
+    'Entrust' => 'Zizaco\Entrust\EntrustFacade',
 	],
 
 ];

@@ -292,7 +292,7 @@
 	    @yield('scripts')
 	    <script type="text/javascript">
        
-      
+       /*affix elements*/
 	    	if ( ($(window).height() + 100) < $(document).height() ) {
 			    $('#top-link-block').removeClass('hidden').affix({
 			        // how far to scroll down before link "slides" into view
@@ -318,7 +318,11 @@
               animationTime=200//in ms
               ;
           //FUNCs
-          var progressiveOpacity=function(element,binder){ //element animate, binder:element to whatch
+          var progressiveOpacity=function(element,binder,animate){ //element animate, binder:element to whatch
+              if(!$(binder).length){//set opacity to max if there is no binder to the element
+                $(element).stop().animate({"opacity":"1"},animationTime);
+                return false;
+              }
               var fadeStart=$(binder).position().top // start scroll, opacity 0
                   ,fadeUntil=$(binder).height()+$(binder).position().top // end scroll opacity 1
                   ,fading = $(element)
@@ -326,45 +330,45 @@
 
               
               var offset = $(window).scrollTop()
-                  ,opacity=0.1
+                  ,opacity=0.1//basic opacity
               ;
-              if( offset>=fadeUntil ){
+              if( offset>=fadeUntil ){//if we are past element make opac
                   opacity=1;
-              }else if( offset>=fadeStart && offset <fadeUntil ){
+              }else if( offset>=fadeStart && offset <fadeUntil ){//if we are in element
                   var newOpacity=offset/fadeUntil;
                   if(newOpacity>minOpacity)
                     opacity=newOpacity;
               }
-
-              $(fading).css('opacity',opacity);
+              if(animate!==undefined && animate!==null && animate)
+                $(fading).stop().animate({'opacity':opacity},animationTime);//apply opacity
+              else
+                $(fading).css('opacity',opacity);
+              return true;
               
           };
           if($('.hero').length ){//animate only if there is a hero
-            if($(window).scrollTop() === $('.hero').position().top)//change opacity only if we are on top of the hero
-              $('#main-nav-container').css('opacity',minOpacity);
+            if($(window).scrollTop() <= $(".hero").height())//change opacity only if we are on top of the hero
+               progressiveOpacity($("#main-nav-container"),$(".hero"));
             $('#main-nav-container').addClass("navbar-fixed-top");
           }
           
           if($(window).scrollTop()!==0)//add fixed top if we are in middle of the page
             $('#main-nav-container').addClass("navbar-fixed-top");
           
-          $(window).scroll(function(){
+          $(window).scroll(function(e){
             var scrollTop = $(window).scrollTop();
             
             if(scrollTop !== 0){//scrolling              
-              if($('#main-nav-container').css('opacity')<1){//if opacity is less then 1, change it
-                $('#main-nav-container').css('opacity','1');
-              }
-              if($('.hero').length && scrollTop !== $('.hero').outerHeight()){//animate if there is a hero
-                progressiveOpacity($("#main-nav-container"),$(".hero"));
-              }
+
+              progressiveOpacity($("#main-nav-container"),$(".hero"));
+              
               if(!$('.hero').length)//add fixed if there is no hero and we are in middle of the page
                 $('#main-nav-container').addClass("navbar-fixed-top");
             }
             else	{//on top of the window
               
               if($('.hero').length && scrollTop !== $('.hero').outerHeight()){                
-                  $('#main-nav-container').stop().animate({'opacity':minOpacity},animationTime);
+                   progressiveOpacity($("#main-nav-container"),$(".hero"));
                }
               if(!$('.hero').length)//remove fixed if we are on top of page and there is no hero
                 $('#main-nav-container').removeClass("navbar-fixed-top");
@@ -372,19 +376,18 @@
           });
 
           $('#main-nav-container').hover(
-            function (e) {//On hover In
+            function (e) {//On mouse In
               
               if($('#main-nav-container').css('opacity')<1){//change Opacity only if it less than maximum
-                $('#main-nav-container').stop().animate({'opacity':'1'},animationTime);
+                 progressiveOpacity($("#main-nav-container"),null,true);
               }
             },
-            function (e) {//On hover Out
-               if($('#main-nav-container').css('opacity')>=1 && $('.hero').length && $(window).scrollTop() !== $('.hero').position().top)//do not animate if opacity is already max and window scroll not on hero
-                 return false;
+            function (e) {//On mouse Out
+                                                            /*&& $('.hero').length && $(window).scrollTop() <= $('.hero').height()*/
                if(!$('.hero').length)//do not animate if there is no hero
                  return false;
-               if($('#main-nav-container').css('opacity')>minOpacity){
-                $('#main-nav-container').stop().animate({'opacity':minOpacity},animationTime);
+               if($('#main-nav-container').css('opacity')>minOpacity){                 
+                 progressiveOpacity($("#main-nav-container"),$(".hero"),true);
               }
             }
           );
@@ -421,14 +424,14 @@
           
 			
 	    </script>
-	    <script>
+	    <script>/*
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 		  ga('create', 'UA-61090245-1', 'auto');
-		  ga('send', 'pageview');
+		  ga('send', 'pageview');*/
 
 		</script>
 	</body>
