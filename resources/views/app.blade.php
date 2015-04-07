@@ -318,14 +318,16 @@
               animationTime=200//in ms
               ;
           //FUNCs
-          var progressiveOpacity=function(element,binder,animate){ //element animate, binder:element to whatch
+          var progressiveOpacity=function(element,binder,animate){ //element to animate, binder:element to whatch, animate:true/false
               if(!$(binder).length){//set opacity to max if there is no binder to the element
                 $(element).stop().animate({"opacity":"1"},animationTime);
+                $(element).css("color","#000");
                 return false;
               }
               var fadeStart=$(binder).position().top // start scroll, opacity 0
                   ,fadeUntil=$(binder).height()+$(binder).position().top // end scroll opacity 1
                   ,fading = $(element)
+                  ,color=rgbToHex(0,0,0)
               ;
 
               
@@ -339,6 +341,7 @@
                   if(newOpacity>minOpacity)
                     opacity=newOpacity;
               }
+
               if(animate!==undefined && animate!==null && animate)
                 $(fading).stop().animate({'opacity':opacity},animationTime);//apply opacity
               else
@@ -424,14 +427,14 @@
           
 			
 	    </script>
-	    <script>/*
+	    <script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 		  ga('create', 'UA-61090245-1', 'auto');
-		  ga('send', 'pageview');*/
+		  ga('send', 'pageview');
 
 		</script>
 	</body>

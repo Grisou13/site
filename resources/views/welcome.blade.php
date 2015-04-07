@@ -15,14 +15,25 @@
 <div class="row">
   <div class="col-md-4" >
     <img src="https://www.carlton.srsd119.ca/wordpress/wp-content/uploads/2014/02/Categories-applications-education-university-icon.png" width="150" class="img img-circle align-center">
-    <h1 class="text-center"><a name="acceuil-formation" data-target="#acceuil-formation">Formation</a></h1>
-    <p>Je suis actuellement étudiant au CPNV à Sainte-Croix, en Informaticien CFC</p>
-    <p>Je suis passioné par le développement web depuis quelque temps et ai envie de rendre le web plus facile et accessible au personne qui n'en ont pas les moyens ni le temps</p>
+    <h1 class="text-center"><a name="acceuil-formation" data-target="#acceuil-formation">Comment</a></h1>
+    <p>Vous voulez un site Web mais ne savez pas par où commencer?</p>
+    <p>Regarder d'abord ce que vous avez besoin comme type de contenu qui va être présent sur votre site.</p>
+    <p>Ensuite </p>
   </div>
   <div class="col-md-4">
     <img src="http://agence-tasch.com/wp-content/uploads/design/icones/site-optimise-seo.png" width="150" class="img img-circle align-center">
-    <h1 class="text-center">Travail personnel</h1>
-    <p>Je suis actuellement en stage chez Kudelski NagraVision, et dans l'équipe de développement et maintenance Web</p>
+    <h1 class="text-center">Différente technologie</h1>
+    <p>Vous voulez un site Web, mais ne savez pas quel gestionnaire de contenu utilisé, ni comment l'installé</p>
+    <p>Contactez-moi, je sais géré des gestionnaire de contenu et en crée des thème</p>
+    <p>Voici une liste des différent gestionnaire de contenu avec lesquels je suis familier et pourrait vous aider:
+    <ul>
+      <li>Drupal : 8/10</li>
+      <li>Wordpress : 5/10</li>
+      <li>Joomla : 3/10</li>
+    </ul>
+    Vous voulez des fonctionnalitées plus poussez que les simple gestionnaire de contenu? Je fait aussi des sites web avec Python Flask, et aussi avec PHP Laravel
+    </p>
+    
   </div>
   <div class="col-md-4">
     <img src="http://portal.securecodewarrior.com/img/code-icon.png" width="150" class="img img-circle align-center">
